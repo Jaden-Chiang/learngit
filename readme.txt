@@ -4,4 +4,4 @@ Git has a mutable index called stage
 new new new
 feature1 and master
 ------------------
-dev modify
+dev modify temporary
