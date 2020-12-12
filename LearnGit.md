@@ -28,7 +28,7 @@ Git鼓励早用分支，多用分支
 
 第二种合并分支的方法是`git rebase` 。Rebase实际就是取出一系列的提交记录，“复制”它们，然后在另外一个地方逐个的放下去。Rebase优势是可以创建更线性的提交历史。使用 `git rebase <branch-name>` 后，在该branch下，之后提交的记录会重新排列。
 
-`git rabase <branch-name1> <branch-name2>`：将branch-name2合并在branch-name1下方，并且分支移到branch-name2。
+`git rebase <branch-name1> <branch-name2>`：将branch-name2合并在branch-name1下方，并且分支移到branch-name2。
 
 #### 高级篇
 
@@ -122,3 +122,49 @@ git fetch实际上将本地仓库中的远程分支更新成了远程仓库相�
 ##### 6. Git Push
 
 `git push`：负责将**自己的**变更上传到指定的远程仓库，并在远程仓库上合并你的新提交记录。
+
+#### 关于origin和它的周边 - Git远程仓库高级操作
+
+##### 2. 合并远程仓库
+
+rebase的优缺点：
+
+优点：
+
+- rebase使你的提交树变得很干净，所有的提交都在一条线上
+
+缺点：
+
+- rebase修改了提交树的历史
+
+##### 3. 远程追踪
+
+可以让任意分支跟踪origin/master，然后该分支会像master分支一样得到隐含的push目的地以及merge的目标。这意味着你可以在分支totallyNotMaster上执行git push，将工作推送到远程仓库的master分支上。
+
+有两种方法设置这个属性，第一种就是通过远程分支checkout一个新的branch，执行：
+
+`git checkout -b <branch-name> origin/master` 
+
+就可以创建一个名为branch-name的分支，它跟踪远程分支origin/master。
+
+第二种方法是使用 `git branch -u origin/master <branch-name>` 命令，如果当前就在branch-name分支上，就可以省略branch-name。
+
+##### 4/5. Git Push的参数
+
+为push指定参数的语法是：
+
+`git push <remote> <place>` ，此处palce为本地和远程仓库分支名相同时使用，如果不相同，则使用如下语法：
+
+`git push origin <source-branch>:<destination-branch>`
+
+如果没有source-branch参数，则会删除远程仓库的destination-branch分支。
+
+##### 6. Git Fetch的参数
+
+git fetch与git push相似，只不过 source-branch指的是远程仓库，destination-branch指的是本地仓库。但是，不能对正在指向的分支进行操作(题上使用HEAD分离)。
+
+如果没有source-branch参数，则会在本地仓库创建一个destination-branch分支。
+
+##### 7. Git Pull的参数
+
+`git pull origin <source-branch>:<destination-branch>`：从远程仓库source-branch下载分支，并进行合并，然后merge到本地分支。
