@@ -1,6 +1,6 @@
 ### Git学习
 
-[Git闯关网站]: https://learngitbranching.js.org/?NODEMO=&amp;locale=zh_CN
+Git闯关网站: https://learngitbranching.js.org/?NODEMO=&amp;locale=zh_CN
 
 #### 基础篇
 
